@@ -1,3 +1,7 @@
+// nothing special we do we apply bfs (in which we just maintain parent array(in which index is child and value is parent) to keep track of node with its parent node)
+// with help of parent array we apply condi---- if previous node is not parent of next node than it is cyclic
+
+
 #include<iostream>
 #include<vector>
 #include<queue>
@@ -15,20 +19,21 @@ bool cyclic(vector<int> adjlist[],bool visited[],int n,int src)
 
     while(!q.empty())
     {
-        int front=q.front();
+        int current_node=q.front();
         q.pop();
 
-        for(int i=0;i<adjlist[front].size();i++)
+        for(int i=0 ; i<adjlist[current_node].size() ; i++) //jo current_node ke adjacent nodes hain(jo ki adjlist mein hamne store kiye the like 1->2,4,5) unko iterate kr rhe hain
         {
-            if(visited[adjlist[front][i]]==true && adjlist[front][i]!=parent[front])
+            //adjlist[current_node][i]---we check first adjacent node(of our current_node) is it visited
+            if(visited[adjlist[current_node][i]]==true && adjlist[current_node][i]!=parent[current_node])
             {
                 return true;
             }
             else
             {
-                visited[adjlist[front][i]]=true;
-                parent[adjlist[front][i]]=front;
-                q.push(adjlist[front][i]);
+                visited[adjlist[current_node][i]]=true;
+                parent[adjlist[current_node][i]]=current_node;
+                q.push(adjlist[current_node][i]);
             }
         }
 
