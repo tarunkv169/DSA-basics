@@ -1,5 +1,19 @@
 // TOPOLOGICAL SORT-----USING BFS(KAHN ALGO)
 
+// u can try
+/*
+   enter the no. of nodes 
+5
+enter the no. of edges
+5
+enter the edges
+1 2
+1 3
+2 5
+3 5
+5 4
+
+*/ 
 #include<iostream>
 #include<vector>
 #include<queue>
