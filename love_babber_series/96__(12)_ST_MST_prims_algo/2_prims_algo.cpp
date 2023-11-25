@@ -9,13 +9,14 @@ class graph
 public:
     int n;
     int e;
+    int sum;
     vector<vector<pair<int, int>>> adjlist;
     vector<int> distarr;
     vector<int> parent;
     vector<bool> mst;
     vector<pair<pair<int,int>,int>> result;
 
-    graph(int nodes, int edges) : n(nodes), e(edges), adjlist(nodes), distarr(nodes, INT_MAX), parent(nodes, -1), mst(nodes, false) {}
+    graph(int nodes, int edges) : n(nodes), e(edges),sum(0), adjlist(nodes), distarr(nodes, INT_MAX), parent(nodes, -1), mst(nodes, false) {}
 
     void create_weighted_adjlist(int u, int v, int w)
     {
@@ -81,13 +82,13 @@ public:
         }
     }
 
-    void print_result()
+    void print_parentarr()
     {
-        cout << "Edges in the Minimum Spanning Tree:" << endl;
-        for (int i = 1; i < n; i++)
+        for (int i = 0; i < n; i++)
         {
-            cout << result[i].first.first << " - " << result[i].first.second << " Weight: " << result[i].second << endl;
+            sum=sum+distarr[i];
         }
+        cout<<sum<<endl;
     }
 };
 
@@ -116,5 +117,5 @@ int main()
     int src;
     cin >> src;
     g.prims(src);
-    g.print_result();
+    g.print_parentarr();
 }
