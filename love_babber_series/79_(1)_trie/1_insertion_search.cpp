@@ -35,6 +35,10 @@ class trie
       {
         root= new trienode('\0');     
       }
+
+
+
+
        
        //  ******************************************************************************************function to insert
       void insertUtil(trienode* root,string word)
@@ -72,6 +76,11 @@ class trie
       }
 
 
+
+
+
+
+
        //  ******************************************************************************************function to search
 
       bool searchUtil(trienode* root,string word)
@@ -101,6 +110,10 @@ class trie
       {
         return searchUtil(root,word);
       }
+
+
+
+
 
        //  ******************************************************************************************function to remove
        void removeUtil(trienode* root,string word)
@@ -153,6 +166,40 @@ class trie
        {
            removeUtil(root,word);
        }
+
+
+
+
+       //  ******************************************************************************************function to remove
+
+       bool prefixUtil(trienode* root,string word)
+       {
+          // same as search only here just when word is completed out of full word return true  
+          if(word.length()==0)
+          {
+             return true;
+          }
+
+          int index = word[0]-'a';
+          trienode* child;
+
+          if(root->children[index]!=NULL)
+          {
+            child = root->children[index];
+          }
+          else{
+            return false;
+          }
+
+          return prefixUtil(child,word.substr(1));
+
+       }
+
+       bool prefixword(string word)
+       {
+          return prefixUtil(root,word);
+       }
+
 };
 
 
@@ -165,6 +212,8 @@ int main()
     t->insertword("rohit");
     t->insertword("rohan");
     
+
+
     if(t->searchword("rohit"))
     {
       cout<<"word is present in our dictionary"<<endl;
@@ -172,15 +221,30 @@ int main()
     else{
       cout<<"word is absent in our dictionary"<<endl;
     }
+
+
 
     t->removeword("rohit");
 
+
+
+
     if(t->searchword("rohit"))
     {
       cout<<"word is present in our dictionary"<<endl;
     }
     else{
       cout<<"word is absent in our dictionary"<<endl;
+    }
+
+
+
+    if(t->prefixword("tar"))
+    {
+      cout<<"prefix is present in our dictionary"<<endl;
+    }
+    else{
+      cout<<"prefix is absent in our dictionary"<<endl;
     }
 
     return 0;
