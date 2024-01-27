@@ -1,3 +1,6 @@
+// T.C for insertion and search (O(L))   where L is length of word
+
+
 #include<iostream>
 #include<string>
 using namespace std;
@@ -33,7 +36,7 @@ class trie
         root= new trienode('\0');     
       }
        
-       // function to insert
+       //  ******************************************************************************************function to insert
       void insertUtil(trienode* root,string word)
       {
         // base case--stopping criteria for recursion
@@ -69,6 +72,7 @@ class trie
       }
 
 
+       //  ******************************************************************************************function to search
 
       bool searchUtil(trienode* root,string word)
       {
@@ -98,6 +102,57 @@ class trie
         return searchUtil(root,word);
       }
 
+       //  ******************************************************************************************function to remove
+       void removeUtil(trienode* root,string word)
+       {
+           //base case
+           if(word.length()==0)
+           {
+              root->isterminal = false;
+
+              if(check_child_node_null(root))
+              {
+                  // if it is checked all its children is null then delete root as it is occupy space,,,,if not null then dekhi kitte root delete krde
+                  delete root;
+                  root = NULL;
+              }
+              return;
+           }
+
+           int index = word[0]-'a';
+           trienode* child=root->children[index];;
+
+           if(child!=NULL)
+           {
+              removeUtil(child,word.substr(1));
+
+              if(check_child_node_null(root) && !child->isterminal)
+              {
+                delete root;
+                root->children[index] = NULL;
+              }
+           }
+           
+           
+       }
+
+       bool check_child_node_null(trienode* root)
+       {
+            for(int i=0;i<26;i++)
+            {
+              if(root->children[i]!=NULL)
+              {
+                return false;
+              }
+            }
+
+            return true;
+       }
+
+       void removeword(string word)
+       {
+           removeUtil(root,word);
+       }
 };
 
 
@@ -109,8 +164,18 @@ int main()
     t->insertword("taru");
     t->insertword("rohit");
     t->insertword("rohan");
+    
+    if(t->searchword("rohit"))
+    {
+      cout<<"word is present in our dictionary"<<endl;
+    }
+    else{
+      cout<<"word is absent in our dictionary"<<endl;
+    }
 
-    if(t->searchword("tarin"))
+    t->removeword("rohit");
+
+    if(t->searchword("rohit"))
     {
       cout<<"word is present in our dictionary"<<endl;
     }
