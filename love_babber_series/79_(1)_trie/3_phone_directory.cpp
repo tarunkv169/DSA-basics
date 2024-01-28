@@ -89,16 +89,18 @@ class trie
         }
         
         
-              for(char ch='a';ch <='z';ch++)
-              {
-
-                trienode* next = curr->children[ch-'a'];
-                if(next!=NULL)
-                {
-                   string newPrefix = prefix + ch;
-                   vector<string> suggestions = print_all_suggestions(next, newPrefix);
-                   temp.insert(temp.end(), suggestions.begin(), suggestions.end());
-                }
+        for(char ch='a';ch <='z';ch++)
+        {
+            trienode* next = curr->children[ch-'a'];
+            if(next!=NULL)
+            {
+               string newPrefix = prefix + ch;
+               vector<string> suggestions = print_all_suggestions(next, newPrefix);
+               for (int i = 0; i < suggestions.size(); i++)
+               {
+                temp.push_back(suggestions[i]);
+               }
+            }
         }
 
         return temp;
@@ -107,7 +109,7 @@ class trie
 
     vector<vector<string>> get_suggestions(string query)
     {
-        // prev taking the parent starting with root , then proceed by curr as prev
+        // temporary root--(prev) starting with root , then proceed by curr as prev
         trienode* prev = root;
         // to keep track whether this prefix is preset or not
         string prefix = "";
@@ -156,9 +158,11 @@ int main()
    string query = "cod";
 
    vector<vector<string>> suggestions = t->get_suggestions(query);
-   for (int i = 0; i < suggestions.size(); i++) {
-       for (int j = 0; j < suggestions[i].size(); j++) {
-           cout << suggestions[i][j] << " ";
+   for (int i = 0; i < suggestions.size(); i++)                  // i represents the row of matrix
+   {
+       for (int j = 0; j < suggestions[i].size(); j++)           // j represetn column as suggestions[0].size----first row size
+       {
+           cout << suggestions[i][j] << " ";                     // printing first row first col   i.e first element
        }
        cout << endl;
    }
