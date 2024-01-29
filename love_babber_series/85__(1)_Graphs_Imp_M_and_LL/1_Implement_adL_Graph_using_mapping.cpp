@@ -22,6 +22,8 @@ class graph
           {
             adj[v].push_back(u);
           }
+
+          
        }
 
        void print()

@@ -11,12 +11,13 @@ public:
     int e;
     int sum;
     vector<vector<pair<int, int>>> adjlist;
+    vector<bool> mst_visited;
     vector<int> distarr;
     vector<int> parent;
-    vector<bool> mst;
+
     vector<pair<pair<int,int>,int>> result;
 
-    graph(int nodes, int edges) : n(nodes), e(edges),sum(0), adjlist(nodes), distarr(nodes, INT_MAX), parent(nodes, -1), mst(nodes, false) {}
+    graph(int nodes, int edges) : n(nodes), e(edges), adjlist(nodes), distarr(nodes, INT_MAX), mst_visited(nodes, false), parent(nodes, -1),sum(0) {}
 
     void create_weighted_adjlist(int u, int v, int w)
     {
@@ -39,48 +40,67 @@ public:
     }
 
     void prims(int src)
+  {
+    distarr[src] = 0;
+    parent[src] = -1;
+    mst_visited[src] = true;
+
+    for (int count = 0; count < n - 1; count++)
     {
-        distarr[src] = 0;
-        parent[src] = -1;
-        mst[src] = true;
+        int smallest = INT_MAX;
+        int smallest_node;
 
-        for (int count = 0; count < n - 1; count++)
+        // Loop over all nodes
+        for (int i = 0; i < n; i++)
         {
-            int smallest = INT_MAX;
-            int smallest_node;
-
-            for (int i = 0; i < n; i++)
+            if (mst_visited[i])
             {
-                if (mst[i])
+                // Loop over all neighbors of the current node
+                for (int j = 0; j < adjlist[i].size(); j++)
                 {
-                    for (int j = 0; j < adjlist[i].size(); j++)
+                    int neighbour = adjlist[i][j].first;
+                    int neighbour_weight = adjlist[i][j].second;
+
+                    // Check if the neighbour is not in MST and the weight is smaller
+                    if (!mst_visited[neighbour] && neighbour_weight < distarr[neighbour])
                     {
-                        int neighbour = adjlist[i][j].first;
-                        int neighbour_weight = adjlist[i][j].second;
-
-                        if (!mst[neighbour] && neighbour_weight < distarr[neighbour])
-                        {
-                            distarr[neighbour] = neighbour_weight;
-                        }
-
-                        if (!mst[neighbour] && distarr[neighbour] < smallest)
-                        {
-                            smallest = distarr[neighbour];
-                            smallest_node = neighbour;
-                        }
+                        distarr[neighbour] = neighbour_weight;
+                        parent[neighbour] = i; // Update parent for the neighbour
                     }
                 }
             }
-
-            if (mst[smallest_node] == false)
-            {
-                mst[smallest_node] = true;
-                parent[smallest_node] = src;
-            }
-
-            src = smallest_node;
         }
+
+        // Find the smallest node not yet in MST
+        for (int i = 0; i < n; i++)
+        {
+            if (!mst_visited[i] && distarr[i] < smallest)
+            {
+                smallest = distarr[i];
+                smallest_node = i;
+            }
+        }
+
+        // Mark the smallest node as visited and update the current source
+        mst_visited[smallest_node] = true;
+        src = smallest_node;
+
+        // Store the result
+        result.push_back({{parent[smallest_node], smallest_node}, distarr[smallest_node]});
     }
+  }
+
+
+  void print_result()
+  {
+    cout << "Minimum Spanning Tree Edges and Weights:" << endl;
+    for (int i = 0; i < result.size(); i++)
+    {
+        cout << "(" << result[i].first.first << " - " << result[i].first.second << ") : " << result[i].second << endl;
+    }
+   }
+
+
 
     void print_parentarr()
     {
@@ -117,5 +137,6 @@ int main()
     int src;
     cin >> src;
     g.prims(src);
+    g.print_result();  // Print the result after running Prim's algorithm
     g.print_parentarr();
 }

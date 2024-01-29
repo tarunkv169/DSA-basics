@@ -2,13 +2,30 @@
 //                       (2)applied only on directed acyclic graph
 //                       (3)need of stack 
 
+// nothing special we are applying same dfs just storing node in stack which doesnot have adjcent left to call
+
+//u can try:-
+/*
+enter the no. of nodes 
+6
+enter the no. of edges 
+7
+enter the edges 
+1 2
+1 3
+2 4
+3 4
+4 5
+4 6
+5 6
+*/
 #include<iostream>
 #include<vector>
 #include<stack>
 using namespace std;
 
 
-void topological_sort(vector<int> adjlist[],bool visited[],stack<int> &s,int n,int src)
+void dfs_toposort(vector<int> adjlist[],bool visited[],stack<int> &topo_sort,int n,int src)
 {
      visited[src]=true;
 
@@ -17,15 +34,17 @@ void topological_sort(vector<int> adjlist[],bool visited[],stack<int> &s,int n,i
         int neighbour=adjlist[src][i];
         if(!visited[neighbour])
         {
-            topological_sort(adjlist,visited,s,n,neighbour);
+            dfs_toposort(adjlist,visited,topo_sort,n,neighbour);
         }
      }
-
-     s.push(src);
+     
+     //  after all recursive call occur now it is backtracking and execute the remaing lines of function
+     // during  this backtrack we add that node into stack
+     topo_sort.push(src);
 }
 
 int main()
-{
+{  //             step 1. creating adjlist
     cout<<"enter the no. of nodes "<<endl;
     int n;
     cin>>n;
@@ -56,23 +75,23 @@ int main()
         cout<<endl;
     }
 
-
+   //              step2. calling dfs for topological sort(declaring visisted and stack)
     bool visited[n]={false};
-    stack<int> s;
+    stack<int> topo_sort;
 
     for(int i=0;i<n;i++)
     {
         if(!visited[i])
         {
-            topological_sort(adjlist,visited,s,n,i);
+            dfs_toposort(adjlist,visited,topo_sort,n,i);
         }
     }
 
 
     for(int i=0;i<n;i++)
     {
-        cout<<s.top()<<" ";
-        s.pop();
+        cout<<topo_sort.top()<<" ";
+        topo_sort.pop();
     }
 
 

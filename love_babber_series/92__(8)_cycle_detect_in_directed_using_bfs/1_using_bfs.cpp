@@ -1,3 +1,8 @@
+// we use topologicalsort using bfs----------for cyclic detection in dircted graph
+// we will use topologicalsort using dfs--------for shortest path in DAG
+
+
+
 // if valid topological sort----->directed acyclic graph
 // if invalid topological sort----->directed cyclic graph----this will give us ans true if exits cyclic
 
@@ -5,6 +10,21 @@
 //                                 ----(count!=nodes)--- invalid T.S ---cyclic--- 
 
 
+
+
+/*u can try  
+enter the no. of nodes 
+5
+enter the no. of edges
+5
+enter the edges
+1 3
+3 5 
+5 2
+2 1
+5 4
+
+*/
 #include<iostream>
 #include<vector>
 #include<queue>

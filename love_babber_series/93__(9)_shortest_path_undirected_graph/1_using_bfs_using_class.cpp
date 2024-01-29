@@ -1,15 +1,22 @@
+// trying to implement the class
+// // nothing special we do we apply bfs (in which we just maintain parent array(in which index is child and value is parent) to keep track of node with its parent node)
+// we know (out of numerous nodes) the node, that reach the destination node first, is parent that destination 
+// from this parent we find parent of this parent until we reach src node, that will give us the shortest path
+
+
 #include<iostream>
 #include<vector>
 #include<queue>
 
 using namespace std;
 
-class UndirectedGraph {
-public:
+class UndirectedGraph 
+{
+  public:
     int n;
     int e;
     int current;
-    vector<vector<int>> adjList;
+    vector<vector<int>> adjList;// vector list ko v vector bna diya so that no need to do vector<int> adjlist[n]
     vector<bool> visited;
     vector<int> parent;
     vector<int> ans;
@@ -39,7 +46,8 @@ public:
     }
 
 
-    void bfs(int src, int dest) {
+    void bfs(int src, int dest) 
+    {
         visited[src]=true;
         parent[src]=true;
         queue<int> q;

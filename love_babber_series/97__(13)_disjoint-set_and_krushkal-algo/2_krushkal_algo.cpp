@@ -13,7 +13,7 @@ class graph
       vector<int> rank;
       vector<pair<int,pair<int,int>>> weighted_edges;
 
-      graph(int nodes,int edges):n(nodes),e(edges),adjlist(nodes),parent(nodes+1,nodes),rank(nodes+1,0)
+      graph(int nodes,int edges):n(nodes),e(edges),adjlist(nodes+1),parent(nodes+1,nodes),rank(nodes+1,0)
       {
         iota(parent.begin(), parent.end(), 0);
       }
@@ -26,7 +26,7 @@ class graph
 
       void print_adjlist()
       {
-        for(int i=0;i<n;i++)
+        for(int i=1;i<=n;i++)
         {
             cout<<i<<"->";
             for(int j=0;j<adjlist[i].size();j++)
@@ -131,9 +131,10 @@ int main()
         cin>>u>>v>>w;
         g.create_adjlist(u,v,w);
     }
-    
+    g.print_adjlist();
+
     int miniweight=g.krushal_algo();
     
-    cout<<"cost weight for minimum spanning tree"<<miniweight<<endl;
+    cout<<"cost weight for minimum spanning tree:--"<<miniweight<<endl;
 
 }

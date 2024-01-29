@@ -1,5 +1,6 @@
 
 
+
 /*
  u can try 
  enter the no. of nodes
@@ -18,40 +19,47 @@ enter the no. of edges
 
 */
 
-
-
-
 #include<iostream>
 #include<vector>
 #include<stack>
 using namespace std;
 
-int main() 
+int main()
 {
-  cout<<"enter the no. of nodes"<<endl;
-  int n; cin>>n;
-  cout<<"enter the no. of edges "<<endl;
-  int e; cin>>e;
+    cout<<"enter the no. of nodes"<<endl;
+    int n;
+    cin>>n;
 
-  vector<vector<pair<int,int>>> adjlist; // adjacency list
-  
-  cout<<"enter the edges and their weights "<<endl;
-  for(int i=0;i<e;i++) 
-  {
-    int u,v,w; 
-    cin>>u>>v>>w; // read the edge (u,v,w)
-    adjlist[u].push_back({v, w}); // add the edge (u,v) with weight w to the adjacency list of node u
-  }
+    cout<<"enter the no. of edges "<<endl;
+    int e;
+    cin>>e;
 
-  for(int i=0;i<n;i++)
-  {
-     cout<<i<<"->";
-     for(int j=0;j<adjlist[i].size();j++)
-     {
-        cout << "[" << adjlist[i][j].first << " " << adjlist[i][j].second << "] ";
-     }
-     cout<<endl;
-  }
+    vector<vector<int>> adjlist[n];  // vector list ko v vector bna diya so that no need to do vector<int> adjlist[n]
+    for(int i=0;i<e;i++)
+    { 
+        int u,v,w;
+        cin>>u>>v>>w;
+        
+        adjlist[u].push_back({v,w});
+        
+    }
 
-  return 0;
+    for(int i=0;i<n;i++)
+    {
+        cout<<i<<"->";
+        for(auto& edge : adjlist[i])
+        {
+            cout<<"["<<edge[0]<<" "<<edge[1]<<"]";
+        }
+        cout<<endl;
+    }
 }
+
+
+
+
+
+
+
+
+

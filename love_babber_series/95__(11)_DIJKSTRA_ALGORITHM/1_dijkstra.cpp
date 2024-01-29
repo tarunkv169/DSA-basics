@@ -36,7 +36,7 @@ class graph
        vector<vector<pair<int,int>>> adjlist;
        vector<int> visited;
        vector<int> distarr;        // STEP 2. CREATING Distance array------------------ \|/ intializing all with infinity
-       set<pair<int,int>> st;
+       set<pair<int,int>> st;      // STEP 3. CREATING set of pair of(distance,node) to keep track of upcomig small distace of particular node while traversign
 
        graph(int nodes,int edges):n(nodes),e(edges),adjlist(nodes),visited(nodes,false),distarr(nodes,INT_MAX){}
 
@@ -90,6 +90,9 @@ class graph
                    if(node_distance + neighbour_weight < distarr[neighbour])
                    {   
                        // 7.checking pair already exist or not 
+                       /*The find function returns an iterator pointing to the found element if it exists, or st.end() if the element is not found.
+                         if (check_already_exist != st.end()): This checks whether the iterator check_already_exist is not equal to st.end(), 
+                         meaning that the element was found in the set.*/
                        auto check_already_exist =st.find(make_pair(distarr[neighbour],neighbour));
                        if(check_already_exist!=st.end())
                        {
@@ -144,7 +147,7 @@ int main()
 
     g.print_weighted_adjlist();
 
-    //              STEP 3. updating distace array using dijkstra algo 
+    //              STEP 4. updating distace array using dijkstra algo 
     cout<<"enter the source form where u want to find the shortest_distance"<<endl;
     int src;
     cin>>src;

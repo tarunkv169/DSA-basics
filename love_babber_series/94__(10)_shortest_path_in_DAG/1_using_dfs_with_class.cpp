@@ -122,7 +122,7 @@ class graph
 
 int main()
 {
-    //                     step1. creating weighted_adjlist
+    //                      STEP 1. CREATING weighted_ADJACENYLIST USING (vector pair list)
     cout<<"enter the no. of nodes"<<endl;
     int n;
     cin>>n;

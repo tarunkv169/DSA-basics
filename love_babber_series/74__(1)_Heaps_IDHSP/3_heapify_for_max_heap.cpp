@@ -1,3 +1,7 @@
+// heapify algo for max_heap -------(agar koi node heap property follow nhi kr rha ta heapify follow krwonda hai)is a process
+// of rearranging the elements of a binary tree
+// to maintain the heap propery                  T.C = O(logn)
+
 #include<iostream>
 using namespace std;
 
@@ -38,7 +42,7 @@ int main()
     int arr[6]={-1,54,53,55,52,50};  // 6 size---1 for -1 as indexing from 1
     int n=5;
 
-    // 2.   processing/traversing leaving leaf nodes
+    // 2.   processing/traversing leaving leaf nodes(leaf nodes donot have childs)(as leaf nodes are form ((n/2)+1)th index to (n)th index)
     for(int i=n/2;i > 0;i--)
     {
         heapify_max(arr,n,i);

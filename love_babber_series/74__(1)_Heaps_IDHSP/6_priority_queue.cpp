@@ -1,4 +1,10 @@
-//  priority queue is a data structure useful for creation of either max_heap or min_heap
+//priority queue: in this we implement the priority queue using heap(what we have learnt at back max-heap or min-heap etc)
+// by using max-heap-----> we implement the priority queue in which (higher the value) (higher the priority)
+// by using min-heap-----> we implement the priority queue in which (lower the value) (higher the priority)
+
+//  priority_queue<int> is a data structure useful for creation of either max_heap or min_heap
+
+
 
 #include<iostream>
 #include<queue>

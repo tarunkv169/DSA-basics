@@ -1,3 +1,10 @@
+//  1. create max_heap either manual insertion or heapify_max(){in this func tool <=size}
+//  2. create heap_sort()and use same logic of deletion but here deleted node are in sorted order
+//  3. print
+
+//  T.C = O(nlogn)
+
+
 #include<iostream>
 using namespace std;
 
@@ -29,12 +36,12 @@ void heapify_max(int arr[],int size,int i)
 void heap_sort(int arr[], int n)
 {
        int size=n;
-       while(size > 1)
+       while(size > 1)    // until we swap all
        {
-         //             1.     swap first(root) node with last(leaf)node(which we want to delete)
+         //             1.     swap first(root) node with last(leaf)node
         swap(arr[1],arr[size]);
 
-        //             2.     remove the last node(which is root node(after swapping)) now our root node is deleted
+        //             2.     for treating last second one and so on as last node to swap with first node
         size--;
 
         //             3.     propegate the node to its right position acc to(max or min heap) here it is max heap
@@ -60,7 +67,9 @@ int main()
     {
         cout<<arr[i]<<" ";
     }
+    
 
+    cout<<endl;
 
 
     // 2. sorting this max heap using heap_sort

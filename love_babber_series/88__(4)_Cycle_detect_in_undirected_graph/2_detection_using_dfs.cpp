@@ -1,3 +1,7 @@
+// nothing special we do we apply dfs (in which we just maintain parent array(in which index is child and value is parent) to keep track of node with its parent node)
+// with help of parent array we apply condi---- if previous node is not parent of next node than it is cyclic
+
+
 #include<iostream>
 #include<vector>
 using namespace std;
